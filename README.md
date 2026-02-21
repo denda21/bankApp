@@ -1,52 +1,36 @@
-# Spring Boot 銀行Webアプリケーション
-
 ## プロジェクト概要
-
-ユーザーにシームレスなバンキング体験を提供するために設計されたSpring Bootアプリケーションです。
+簡単な銀行取引を体験を提供するために開発されたSpring Bootアプリケーションです。
 
 ## 主な機能
 - ユーザー登録・認証 : BCryptによるパスワード暗号化、セッションベースの認証管理
-- 口座管理 : 口座の作成、残高確認、一覧表示（ページネーション対応）
-- 口座間送金 : synchronized方式 + 悲観的ロック（Pessimistic Lock）による同時実行制御
-- 取引履歴 : 送金・入金履歴の閲覧（ページネーション対応）
-- エラーハンドリング : `@ControllerAdvice`による一括例外処理
-
+- 口座 : 口座の作成、残高確認、一覧表示、振り込み
+- 取引履歴の閲覧
 
 ## 使用技術
-
 - Backend : Java 17, Spring Boot 4.0
-- Maven
-- Junit
-- Frontend : HTML, Bootstrap(CSS)
-- データベース : PostgreSQL
+- Database : PostgreSQL
 - ORM : Mybatis 4.0
+- Build Tool : Maven
+- Test : Junit
+- Frontend : HTML, Bootstrap(CSS)
 - Thymeleaf
 
 ## API Endpoints
 
-### 認証（Auth）
+ユーザー
+- POST /login
+- POST /register
+- POST /logout
 
-| メソッド | エンドポイント | 説明 |
-|---------|--------------|------|
-| `GET`  | `/login` | ログインページ表示 |
-| `POST` | `/login` | ログイン処理（email, password） |
-| `GET`  | `/register` | 会員登録ページ表示 |
-| `POST` | `/register` | 会員登録処理（user_name, email, password） |
-| `POST` | `/logout` | ログアウト（セッション無効化） |
+口座
+- POST /account/createAccount
+- POST /account/{accountNumber}/transfer
+- GET /account/{accountId}/history
 
-### 口座（Account）
+ダッシュボード
+- GET /app/dashboard
 
-| メソッド | エンドポイント | 説明 |
-|---------|--------------|------|
-| `POST` | `/account/createAccount` | 口座作成（account_name） |
-| `POST` | `/account/{accountNumber}/transfer` | 口座間送金 |
-| `GET`  | `/account/{accountId}/history` | 取引履歴照会（ページネーション対応） |
 
-### ダッシュボード
-
-| メソッド | エンドポイント | 説明 |
-|---------|--------------|------|
-| `GET`  | `/app/dashboard` | ユーザーダッシュボード（口座一覧表示） |
 
 ## トランザクション・同時実行制御・悲観的ロック
 
