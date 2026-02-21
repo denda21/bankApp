@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bank_project.mapper.UserMapper">
+
+    <resultMap id="UserResultMap" type="com.bank_project.vo.User">
+        <id property="user_id" column="user_id"/>
+        <result property="user_name" column="user_name"/>
+        <result property="email" column="email"/>
+        <result property="password" column="password"/>
+    </resultMap>
+
+    <select id="findUserByEmail" parameterType="String" resultMap="UserResultMap">
+        SELECT user_id, user_name, email, password
+        FROM bank_user
+        WHERE email = #{email}
+    </select>
+
+    <insert id="insertUser" parameterType="com.bank_project.vo.User" useGeneratedKeys="true" keyProperty="user_id">
+        INSERT INTO bank_user (
+            user_name,
+            email,
+            password
+        )
+        VALUES (
+            #{user_name},
+            #{email},
+            #{password}
+        )
+    </insert>
+
+</mapper>

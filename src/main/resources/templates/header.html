@@ -1,0 +1,11 @@
+<header th:fragment="header" class="navbar navbar-light bg-white border-bottom px-3">
+    <a th:href="@{/app/dashboard}" class="navbar-brand">
+        <strong>denda's Bank</strong>
+    </a>
+    <div class="d-flex align-items-center gap-2">
+        <span th:text="${user_name}"></span>
+        <form th:action="@{/logout}" method="post" class="d-inline m-0">
+            <button type="submit" class="btn btn-outline-secondary btn-sm">Logout</button>
+        </form>
+    </div>
+</header>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bank_project.mapper.TransferMapper">
+
+    <insert id="insertTransfer" parameterType="com.bank_project.vo.Transfer" useGeneratedKeys="true" keyProperty="transfer_id">
+        INSERT INTO transfer (
+            sender_id,
+            receiver_id,
+            amount,
+            transfer_time
+        )
+        VALUES (
+            #{sender_id},
+            #{receiver_id},
+            #{amount},
+            #{transfer_time}
+        )
+    </insert>
+
+    <insert id="insertHistory" useGeneratedKeys="false">
+        INSERT INTO transfer_history (account_id, transfer_with, amount,
+        transfer_type, transfer_time)
+        VALUES
+        <foreach collection="list" item="history" separator=",">
+            (
+                #{history.account_id},
+                #{history.transfer_with},
+                #{history.amount},
+                #{history.transfer_type},
+                #{history.transfer_time}
+            )
+        </foreach>
+    </insert>
+
+    <select id="countAccountHistory" resultType="int">
+        SELECT COUNT(*) FROM transfer_history
+        WHERE account_id = #{account_id}
+    </select>
+
+    <select id="findHistoryByAccountId" resultType="com.bank_project.vo.TransferHistory">
+        SELECT
+            th.account_id,
+            a.account_number,
+            th.amount,
+            th.transfer_type,
+            th.transfer_with,
+            th.transfer_time
+        FROM transfer_history th
+        INNER JOIN accounts a ON th.account_id = a.account_id
+        WHERE th.account_id = #{account_id}
+        ORDER BY th.transfer_time DESC
+        LIMIT #{rowPerPage} OFFSET #{start_idx}
+    </select>
+
+</mapper>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bank_project.mapper.AccountMapper">
+
+    <select id="countUserAccount" resultType="int">
+        SELECT COUNT(*) FROM accounts
+        where user_id = #{user_id}
+    </select>
+
+    <select id="getAccountsOnDashboard" resultType="com.bank_project.vo.Account">
+        SELECT
+            account_id,
+            account_number,
+            account_name,
+            user_id,
+            balance,
+            updated_at
+        FROM accounts
+        WHERE user_id = #{user_id}
+        ORDER BY updated_at DESC
+        LIMIT #{count} OFFSET #{offset}
+    </select>
+
+    <insert id="insertAccount" parameterType="com.bank_project.vo.Account" useGeneratedKeys="true" keyProperty="account_id">
+        INSERT INTO accounts (
+            account_number,
+            account_name,
+            user_id,
+            balance,
+            updated_at
+        )
+        VALUES (
+            #{account_number},
+            #{account_name},
+            #{user_id},
+            #{balance},
+            #{updated_at}
+        )
+    </insert>
+
+
+    <update id="updateBalance">
+        UPDATE accounts
+        SET balance = #{account.balance}, updated_at = NOW()
+        WHERE account_id = #{account.account_id}
+    </update>
+
+    <select id="findIDByNumber" resultType="int">
+        SELECT account_id FROM accounts
+        WHERE account_number = #{account_number}
+    </select>
+
+    <select id="findAccountByID" parameterType="int" resultType="com.bank_project.vo.Account">
+        SELECT * FROM accounts
+        WHERE account_id = #{account_id}
+    </select>
+
+    <select id="findForUpdate" parameterType="int" resultType="com.bank_project.vo.Account">
+        SELECT * FROM accounts
+        WHERE account_id = #{account_id}
+        FOR UPDATE
+    </select>
+
+    <select id="findAccountByNumber" resultType="com.bank_project.vo.Account">
+        SELECT * FROM accounts
+        WHERE account_number = #{account_number}
+    </select>
+
+</mapper>
