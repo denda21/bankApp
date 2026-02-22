@@ -1,3 +1,17 @@
+# Denda's Bank
+簡単な銀行取引を体験を提供するために開発されたSpring Bootアプリケーションです。
+
+## 目次
+
+- [プロジェクト概要](#プロジェクト概要)
+- [主な機能](#主な機能)
+- [使用技術](#使用技術)
+- [API Endpoints](#api-endpoints)
+- [実行方法](#実行方法)
+- [使い方](#使い方)
+- [](#)
+- [写真](#写真)
+
 ## プロジェクト概要
 簡単な銀行取引を体験を提供するために開発されたSpring Bootアプリケーションです。
 
@@ -30,56 +44,37 @@
 ダッシュボード
 - GET /app/dashboard
 
-
-
-## トランザクション・同時実行制御・悲観的ロック
-
-test
-
-## トラブルシューティング
-
-test
-
-## テストコード・デバッグ・エラーハンドリング・ロギング
-
-### テストコード
-
-test
-
 ## 実行方法
 
-### Maven で実行
+1. リポジトリをクローン
+```sh
+git clone https://github.com/denda21/bankApp.git
+```
 
-```bash
-# 1. リポジトリをクローン
-git clone https://github.com/your-username/bank_project.git
-cd bank_project
+2. PostgreSQL データベースの作成
+   bank_app という名前のデータベースを作成してください
+   update the database configuration in src/main/resources/application.properties
 
-# 2. PostgreSQL データベースの作成
-# bank_app という名前のデータベースを作成してください
-createdb bank_app
-
-# 3. データベース設定
-# src/main/resources/application.properties を環境に合わせて編集
-#   spring.datasource.url=jdbc:postgresql://localhost:5432/bank_app
-#   spring.datasource.username=postgres
-#   spring.datasource.password=postgres
-
-# 4. プロジェクトのビルド
+3. プロジェクトビルド
+```sh
 mvn clean install
+```
 
-# 5. アプリケーションの起動
+4. アプリケーションの起動
+```sh
 mvn spring-boot:run
 ```
 
-
 ## 使い方
 
-1. Webブラウザで `http://127.0.0.1:8076/` にアクセス
-2. **会員登録**（`/register`）でアカウントを作成
-3. **ログイン**（`/login`）でダッシュボードに移動
-4. **ダッシュボード**で口座を作成し、残高を管理
-5. **送金**で他の口座に送金
-6. **取引履歴**で過去の送金・入金記録を確認
+- Webブラウザで `http://127.0.0.1:8076/` にアクセス
+- 会員登録でアカウントを作成
+- ログインでダッシュボードに移動
+- ダッシュボード**で口座を作成し、残高を管理
+- 送金で他の口座に送金
+- 取引履歴で過去の送金・入金記録を確認
+
+## エンジニアリング、トラブルシューティング
+
 
 ## 写真
