@@ -46,23 +46,29 @@
 <summary>1. synchronized & 
 悲観ロック : 同時実行時のデータ不整合解決　</summary>
 送金処理において、データの整合性を保証するため2種類のトランザクション制御方式を実装しています。
-    (1) synchronized
-    (2) 悲観ロック
+
+(1) synchronized メソッド
+
+(2) データベース悲観ロック
+
 2つの方法のテストは BankProjectApplicationTests.java で可能です。
 </details>
 
 <details>
 <summary>2. authfilterによるセッションセキュリティ認証　</summary>
+
 フレームワークを使用せずに作成したフィルタで、HTTPリクエストオブジェクトを通じてセッションベースの認証を使用します。
 </details>
 
 <details>
 <summary>3. 例外処理設計：@Controlleradviceで集約、分類　</summary>
+
 コントローラーでのカスタム例外、ログイン、登録、DBエラー、404、500エラーを集約、分類しました。
 </details>
 
 <details>
 <summary>4. クエリパフォーマンスの最適化　</summary>
+
 ネットワークの往復最小化 : 頻繁にクエリが発生したり、2つのテーブルをまとめてクエリを送信できるように、インデックス(index)とジョイン(join)を使用するように設計しました。
 </details>
 
@@ -100,28 +106,41 @@ mvn spring-boot:run
 
 <details>
 <summary>Click here to show the screenshots</summary>
-    <p> Figure 1</p>
-    <img src ="img/1.PNG">
-    - 
-    <p> Figure 2</p>
-    <img src ="img/2.PNG">
-    - 
-    <p> Figure 3</p>
-    <img src ="img/3.PNG">
-    -
-    <p> Figure 4</p>
-    <img src ="img/4.PNG">
-    -
-    <p> Figure 5</p>
-    <img src ="img/5.PNG">
-    -
-    <p> Figure 6</p>
-    <img src ="img/6.PNG">
-    -
-    <p> Figure 7</p>
-    <img src ="img/7.PNG">
-    -
-    <p> Figure 8</p>
-    <img src ="img/8.PNG">
-    -
+
+<figure>
+  <img src="img/1.PNG">
+  <figcaption> 1 - ログイン画面</figcaption>
+</figure>
+
+<figure>
+  <img src="img/2.PNG">
+  <figcaption> 2 - ユーザー登録を行います。</figcaption>
+</figure>
+
+<figure>
+  <img src="img/3-1.PNG">
+  <img src="img/3-2.PNG">
+  <figcaption> 3 - 新しい口座を登録します。ランダムな口座番号が一緒に生成されます。</figcaption>
+</figure>
+
+<figure>
+  <img src="img/4.PNG">
+  <figcaption> 4 - 事前に用意したtestアカウントでログインします。</figcaption>
+</figure>
+
+<figure>
+  <img src="img/5.PNG">
+  <figcaption> 5 - 最初に作成した口座へ送金します。</figcaption>
+</figure>
+
+<figure>
+  <img src="img/6.PNG">
+  <figcaption> 6 - 取引時間順にダッシュボードは更新されます。</figcaption>
+</figure>
+
+<figure>
+  <img src="img/7.PNG">
+  <figcaption> 7 - 取引した口座の記録を確認できます。</figcaption>
+</figure>
+
 </details>
