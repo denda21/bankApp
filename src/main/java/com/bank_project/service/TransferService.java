@@ -66,7 +66,7 @@ public class TransferService {
             List<TransferHistory> history_list = List.of(
                     new TransferHistory(sender.getAccount_id(), receiver.getAccount_name(), transferDTO.getAmount(),
                             "OUT"),
-                    new TransferHistory(receiver.getAccount_id(), receiver.getAccount_name(), transferDTO.getAmount(),
+                    new TransferHistory(receiver.getAccount_id(), sender.getAccount_name(), transferDTO.getAmount(),
                             "IN"));
 
             transferMapper.insertHistory(history_list);
@@ -101,25 +101,24 @@ public class TransferService {
             AccountMapper accountMapper = sqlSession.getMapper(AccountMapper.class);
             TransferMapper transferMapper = sqlSession.getMapper(TransferMapper.class);
 
-            // To prevent deadlock (order by ID)
+            // Sort to prevent deadlock
             Account sender, receiver;
-            int sender_id = accountMapper.findIDByNumber(transferDTO.getSender_account_number());
-            int receiver_id = accountMapper.findIDByNumber(transferDTO.getReceiver_account_number());
+            String senderNum = transferDTO.getSender_account_number();
+            String receiverNum = transferDTO.getReceiver_account_number();
 
-            if (sender_id < receiver_id) {
-                sender = accountMapper.findForUpdate(sender_id);
+            if (senderNum.compareTo(receiverNum) < 0) {
+                sender = accountMapper.findForUpdateByNumber(senderNum);
                 validation(sender);
-                receiver = accountMapper.findForUpdate(receiver_id);
+                receiver = accountMapper.findForUpdateByNumber(receiverNum);
                 validation(receiver);
             } else {
-                receiver = accountMapper.findForUpdate(receiver_id);
+                receiver = accountMapper.findForUpdateByNumber(receiverNum);
                 validation(receiver);
-                sender = accountMapper.findForUpdate(sender_id);
+                sender = accountMapper.findForUpdateByNumber(senderNum);
                 validation(sender);
             }
 
             if (sender.getAccount_number().equals(receiver.getAccount_number())) {
-
                 throw new RuntimeException("Same Account, Please try again");
             }
 
@@ -144,7 +143,7 @@ public class TransferService {
             List<TransferHistory> history_list = List.of(
                     new TransferHistory(sender.getAccount_id(), receiver.getAccount_name(), transferDTO.getAmount(),
                             "OUT"),
-                    new TransferHistory(receiver.getAccount_id(), receiver.getAccount_name(), transferDTO.getAmount(),
+                    new TransferHistory(receiver.getAccount_id(), sender.getAccount_name(), transferDTO.getAmount(),
                             "IN"));
 
             transferMapper.insertHistory(history_list);

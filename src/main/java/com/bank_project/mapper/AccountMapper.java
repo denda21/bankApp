@@ -25,4 +25,6 @@ public interface AccountMapper {
         int findIDByNumber(@Param("account_number") String account_number);
 
         Account findAccountByNumber(String account_number);
+
+        Account findForUpdateByNumber(@Param("account_number") String account_number);
 }

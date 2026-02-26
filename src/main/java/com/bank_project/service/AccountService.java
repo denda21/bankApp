@@ -65,9 +65,7 @@ public class AccountService {
         return new PagedResult<>(history_list, pagingDTO);
     }
 
-
-
-    //testing methods
+    // testing methods
 
     @Transactional
     public Account createAccountWithBalance(int user_id, String account_name, BigDecimal initialBalance) {

@@ -32,24 +32,4 @@
         </foreach>
     </insert>
 
-    <select id="countAccountHistory" resultType="int">
-        SELECT COUNT(*) FROM transfer_history
-        WHERE account_id = #{account_id}
-    </select>
-
-    <select id="findHistoryByAccountId" resultType="com.bank_project.vo.TransferHistory">
-        SELECT
-            th.account_id,
-            a.account_number,
-            th.amount,
-            th.transfer_type,
-            th.transfer_with,
-            th.transfer_time
-        FROM transfer_history th
-        INNER JOIN accounts a ON th.account_id = a.account_id
-        WHERE th.account_id = #{account_id}
-        ORDER BY th.transfer_time DESC
-        LIMIT #{rowPerPage} OFFSET #{start_idx}
-    </select>
-
 </mapper>

@@ -36,14 +36,5 @@ CREATE TABLE transfer_history
     transfer_time TIMESTAMP NOT NULL
 );
 
-/*
-CREATE INDEX idx_account_user_updated ON accounts(user_id, updated_at DESC);
-CREATE INDEX idx_transfer_history_account_time ON transfer_history(account_id, transfer_time DESC);
-CREATE INDEX idx_account_number ON accounts(account_number);
-*/
-
-/*
-CREATE INDEX idx_account_user_updated ON account(user_id, updated_at DESC);
-CREATE INDEX idx_transfer_history_account_time ON transfer_history(account_number, transfer_time DESC);
-add join?
- */
+CREATE INDEX idx_accounts_account_number ON accounts(account_number);
+CREATE INDEX idx_accounts_user_id_updated_at ON accounts(user_id, updated_at DESC);

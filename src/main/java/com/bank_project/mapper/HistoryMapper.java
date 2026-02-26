@@ -11,6 +11,6 @@ public interface HistoryMapper {
 
     int countAccountHistory(@Param("account_id") int account_id);
     List<TransferHistory> findHistoryByAccountId(@Param("account_id") int account_id,
-                                                 @Param("start_idx") int start_idx,
-                                                 @Param("rowPerPage") int rowPerPage);
+            @Param("start_idx") int start_idx,
+            @Param("rowPerPage") int rowPerPage);
 }

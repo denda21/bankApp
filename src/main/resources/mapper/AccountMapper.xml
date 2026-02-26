@@ -66,4 +66,10 @@
         WHERE account_number = #{account_number}
     </select>
 
+    <select id="findForUpdateByNumber" resultType="com.bank_project.vo.Account">
+        SELECT * FROM accounts
+        WHERE account_number = #{account_number}
+        FOR UPDATE
+    </select>
+
 </mapper>
